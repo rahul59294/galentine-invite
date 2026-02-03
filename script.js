@@ -346,7 +346,7 @@ sendLetterBtn.addEventListener("click", async () => {
   }
 
   // Fire and forget Google Form submission
-  fetch("https://docs.google.com/forms/d/e/1FAIpQLSdHkipCY-YHNW_SSUVqd2eTlOR42-V3cXh6uSASiZBRZPRYVQ/viewform", {
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSdHkipCY-YHNW_SSUVqd2eTlOR42-V3cXh6uSASiZBRZPRYVQ/viewform?usp=header", {
     method: "POST",
     mode: "no-cors",
     headers: {
