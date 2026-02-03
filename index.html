@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will You Be My Galentine?</title>
+
+    <!-- Google Fonts -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="scene">
+      <!-- Background floating hearts -->
+      <div class="floating-hearts" aria-hidden="true">
+        <span>♥</span><span>♡</span><span>♥</span><span>♡</span><span>♥</span
+        ><span>♡</span>
+      </div>
+
+      <!-- Scene 1: Envelope -->
+      <section class="envelope-scene" id="envelopeScene">
+        <div class="envelope-stack">
+          <div class="envelope-shadow"></div>
+          <button class="envelope" id="envelopeButton" type="button" aria-label="Open letter">
+            <div class="envelope-back"></div>
+            <div class="envelope-letter">
+              <p class="envelope-to">For Ms. Gurleen Kaur 💕</p>
+            </div>
+            <div class="envelope-flap"></div>
+            <div class="envelope-stamp">
+              <span class="stamp-heart">♥</span>
+              <span class="stamp-text">XO</span>
+            </div>
+          </button>
+          <p class="envelope-hint">Tap to open your Galentine letter ✨</p>
+        </div>
+      </section>
+
+      <!-- Scene 2: Letter -->
+      <section class="letter-scene" id="letterScene" aria-hidden="true">
+        <div class="letter-wrap">
+          <div class="letter-paper">
+            <div class="letter-content" id="letterContent">
+              <header class="letter-header">
+                <p class="letter-date">Feb 14 • To my favourite human</p>
+              </header>
+              <article class="letter-body">
+                <p>Dear Ms. Gurleen Kaur,</p>
+                <p>
+                  You are officially invited to be my forever chaos partner,<br />
+                  snack buddy, and emotional support human.
+                </p>
+                <p>So…</p>
+                <p class="letter-question">Will you be my Galentine? 💖</p>
+              </article>
+
+              <div class="letter-actions">
+                <button class="btn btn-yes" id="yesButton" type="button">
+                  YES 💕
+                </button>
+              </div>
+
+              <p class="tease-message" id="teaseMessage" aria-live="polite"></p>
+            </div>
+
+            <div class="letter-celebrate" id="letterCelebrate" aria-hidden="true">
+              <p class="celebrate-line-main">
+                YAYYY! Best Galentine secured 💕✨
+              </p>
+
+              <img
+                id="friendPhoto"
+                class="friend-photo"
+                src="./Gurleen.png"
+                alt="Gurleen"
+              />
+
+              <p class="celebrate-line-sub">
+                Screenshot this and send it to me so we can plan snacks, gossip, and the perfect Galentine’s date.
+              </p>
+            </div>
+
+            <div class="letter-compose" id="letterCompose" aria-hidden="true">
+              <p class="compose-title">Write your letter to Rahul 💕</p>
+              <textarea
+                id="letterTextarea"
+                class="letter-textarea"
+                rows="5"
+                placeholder="Dear Rahul..."
+              ></textarea>
+              <button class="btn btn-yes send-btn" id="sendLetterBtn" type="button">
+                SEND 💌
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reply section below the card -->
+      <section class="reply-section" id="replySection" aria-live="polite">
+        <p class="reply-title">Do you want to send Rahul a letter? 💌</p>
+        <div class="reply-actions">
+          <button class="btn reply-btn-yes" id="replyYesBtn" type="button">YES</button>
+          <button class="btn reply-btn-no" id="replyNoBtn" type="button">NO</button>
+        </div>
+        <p class="reply-message" id="replyMessage"></p>
+      </section>
+
+      <!-- Confetti / hearts canvas -->
+      <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+      <!-- Celebration cat image (appears above the card after YES is clicked).
+           This lives at the top level so it is NOT part of the card layout. -->
+      <img
+        id="celebrationCat"
+        class="celebration-cat"
+        src="./celebration-cat.png"
+        alt="Cool cat holding roses"
+      />
+
+      <!-- Postman cat shown when writing a letter -->
+      <img
+        id="postmanCat"
+        class="celebration-cat celebration-cat--postman"
+        src="./postmanCat.png"
+        alt="Postman cat ready to deliver letters"
+      />
+
+      <!-- NO button lives at top level so it can roam the entire viewport -->
+      <button class="btn btn-no" id="noButton" type="button">
+        no 🙈
+      </button>
+
+      <!-- Optional tiny background chime (no auto-play on some browsers) -->
+      <audio id="chimeAudio" preload="auto">
+        <source src="" type="audio/mpeg" />
+      </audio>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+
+

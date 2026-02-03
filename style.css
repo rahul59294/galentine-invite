@@ -1,0 +1,806 @@
+:root {
+  --bg-1: #ffe9f1;
+  --bg-2: #fff7f0;
+  --bg-3: #fbe2e2;
+  --paper: #fff9f2;
+  --paper-edge: #f1dfcf;
+  --ink: #5b3b33;
+  --ink-soft: #7b544a;
+  --accent: #ff6fa5;
+  --accent-soft: #ff9ac1;
+  --accent-deep: #f44773;
+  --shadow-soft: 0 22px 60px rgba(117, 73, 56, 0.22);
+  --shadow-subtle: 0 12px 30px rgba(150, 96, 75, 0.18);
+  --radius-lg: 26px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "Quicksand", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 192, 203, 0.6), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(255, 209, 220, 0.7), transparent 55%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  overflow: hidden;
+}
+
+.scene {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* center horizontally */
+  justify-content: center;
+  /* center vertically */
+  position: relative;
+  padding: 20px 14px;
+}
+
+.floating-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-hearts span {
+  position: absolute;
+  font-size: 22px;
+  color: rgba(255, 145, 174, 0.6);
+  animation: floatUp 14s linear infinite;
+}
+
+.floating-hearts span:nth-child(1) {
+  left: 8%;
+  bottom: -10%;
+  animation-duration: 16s;
+}
+
+.floating-hearts span:nth-child(2) {
+  left: 26%;
+  bottom: -16%;
+  animation-duration: 18s;
+}
+
+.floating-hearts span:nth-child(3) {
+  left: 48%;
+  bottom: -12%;
+}
+
+.floating-hearts span:nth-child(4) {
+  left: 68%;
+  bottom: -18%;
+  animation-duration: 15s;
+}
+
+.floating-hearts span:nth-child(5) {
+  left: 82%;
+  bottom: -18%;
+  animation-duration: 20s;
+}
+
+.floating-hearts span:nth-child(6) {
+  left: 92%;
+  bottom: -12%;
+  animation-duration: 17s;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.8);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-120vh) translateX(-20px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.envelope-scene,
+.letter-scene,
+.celebrate {
+  position: relative;
+  z-index: 1;
+}
+
+.letter-scene,
+.celebrate {
+  display: none;
+}
+
+.letter-scene.is-visible,
+.celebrate.is-visible {
+  display: block;
+}
+
+.envelope-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.envelope-shadow {
+  width: 260px;
+  max-width: 70vw;
+  height: 22px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 50% 0, rgba(0, 0, 0, 0.16), transparent 70%);
+  opacity: 0.5;
+  transform: translateY(44px);
+}
+
+.envelope {
+  position: relative;
+  width: min(460px, 88vw);
+  height: 270px;
+  border-radius: 18px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  transform-origin: center center;
+  animation: floatEnvelope 4s ease-in-out infinite;
+}
+
+@keyframes floatEnvelope {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-8px) scale(1.01);
+  }
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 12px 10px 14px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fff5eb, #ffe4d6);
+  box-shadow: var(--shadow-soft);
+}
+
+.envelope-letter {
+  position: absolute;
+  inset: 32px 32px 52px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff9f4, #fff2e7);
+  box-shadow: inset 0 0 0 1px rgba(196, 150, 127, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.envelope-to {
+  margin: 0;
+  font-family: "Dancing Script", cursive;
+  font-size: 34px;
+  color: var(--ink-soft);
+}
+
+.envelope-flap {
+  position: absolute;
+  inset: 12px 10px 50%;
+  transform-origin: top center;
+  background: linear-gradient(135deg, #ffe9db, #fdd4c0);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1.3);
+  box-shadow: 0 14px 32px rgba(161, 105, 86, 0.35);
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.open .envelope-letter {
+  animation: letterSlideUp 0.7s cubic-bezier(0.16, 0.82, 0.22, 1.26) forwards;
+}
+
+@keyframes letterSlideUp {
+  0% {
+    transform: translateY(40px) scale(0.98);
+  }
+
+  60% {
+    transform: translateY(-6px) scale(1.02);
+  }
+
+  100% {
+    transform: translateY(-100px) scale(1);
+  }
+}
+
+.envelope-stamp {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 52px;
+  height: 60px;
+  background: #fffdf7;
+  border-radius: 10px;
+  border: 1px dashed rgba(196, 150, 127, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 6px 18px rgba(138, 93, 72, 0.24);
+}
+
+.stamp-heart {
+  font-size: 18px;
+  color: #f45a7e;
+}
+
+.stamp-text {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #b27a62;
+}
+
+.envelope-hint {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(92, 58, 50, 0.75);
+  background: rgba(255, 249, 242, 0.8);
+  padding: 6px 12px;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(156, 101, 77, 0.24);
+}
+
+/* Letter Scene */
+
+.letter-wrap {
+  max-width: 540px;
+  width: min(540px, 100%);
+  padding: 12px 12px 0;
+}
+
+.letter-paper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+  padding: 30px 40px 24px;
+  border: 1px solid rgba(214, 176, 149, 0.9);
+  height: auto;
+}
+
+.letter-paper::before {
+  content: "";
+  position: absolute;
+  inset: 10px 12px 12px;
+  border-radius: calc(var(--radius-lg) - 6px);
+  border: 1px dashed rgba(214, 176, 149, 0.7);
+  pointer-events: none;
+}
+
+.letter-header {
+  margin-bottom: 10px;
+}
+
+.letter-date {
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(125, 86, 69, 0.9);
+}
+
+.letter-body {
+  position: relative;
+  font-family: "Dancing Script", cursive;
+  font-size: 21px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding-right: 6px;
+}
+
+.letter-body p {
+  margin: 0 0 10px;
+}
+
+.letter-question {
+  font-size: 26px;
+  color: var(--accent-deep);
+}
+
+.letter-actions {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border-radius: 999px;
+  border: none;
+  font-family: "Quicksand", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease,
+    color 0.18s ease;
+  outline: none;
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(250, 95, 146, 0.7);
+}
+
+.btn-yes {
+  padding: 12px 32px;
+  font-size: 16px;
+  color: #fff;
+  background: radial-gradient(circle at 0 0, #ffd3e4, transparent 55%),
+    linear-gradient(135deg, var(--accent), var(--accent-deep));
+  box-shadow: 0 16px 40px rgba(244, 71, 115, 0.35);
+}
+
+.btn-yes:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 18px 48px rgba(244, 71, 115, 0.45);
+}
+
+.btn-yes:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 10px 24px rgba(244, 71, 115, 0.3);
+}
+
+.btn-no {
+  padding: 8px 18px;
+  font-size: 13px;
+  color: rgba(74, 49, 42, 0.9);
+  background: linear-gradient(135deg, #f7f3f0, #ebe0d9);
+  box-shadow: 0 10px 26px rgba(108, 84, 75, 0.25);
+  position: fixed;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-no.wiggle {
+  animation: wiggle 0.35s ease-in-out;
+}
+
+@keyframes wiggle {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(4px, -2px) rotate(3deg);
+  }
+
+  50% {
+    transform: translate(-5px, 2px) rotate(-4deg);
+  }
+
+  75% {
+    transform: translate(3px, -3px) rotate(2deg);
+  }
+}
+
+.tease-message {
+  margin: 14px 4px 2px;
+  font-size: 13px;
+  color: rgba(127, 78, 62, 0.9);
+  min-height: 1.2em;
+}
+
+/* In-card celebration state */
+
+.letter-celebrate {
+  display: none;
+  text-align: left;
+  padding: 6px 4px 0;
+}
+
+.letter-paper.is-celebrating .letter-content {
+  display: none;
+  pointer-events: none;
+}
+
+.letter-paper.is-celebrating .letter-celebrate {
+  display: block;
+  animation: celebrateFadeIn 0.6s cubic-bezier(0.21, 0.98, 0.32, 1.2) forwards;
+}
+
+.celebrate-line-main {
+  margin: 4px 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+
+.celebrate-line-sub {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.letter-compose {
+  display: none;
+  padding-top: 6px;
+}
+
+.compose-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent-deep);
+}
+
+.letter-textarea {
+  width: 100%;
+  min-height: 130px;
+  resize: vertical;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(214, 176, 149, 0.9);
+  background: radial-gradient(circle at top left, #fff6ec, #fff0e0);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+  font-family: "Dancing Script", cursive;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.letter-textarea::placeholder {
+  color: rgba(143, 100, 84, 0.7);
+}
+
+.send-btn {
+  margin-top: 4px;
+}
+
+.letter-paper.is-writing .letter-celebrate {
+  display: none;
+}
+
+.letter-paper.is-writing .letter-compose {
+  display: block;
+}
+
+@keyframes celebrateFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Subtle flip / morph effect on YES */
+.letter-paper.is-celebrating {
+  animation: paperFlip 0.6s cubic-bezier(0.36, 0.74, 0.28, 1.12);
+}
+
+@keyframes paperFlip {
+  0% {
+    transform: rotateY(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotateY(8deg) scale(1.02);
+  }
+
+  100% {
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Celebration cat */
+
+.celebration-cat {
+  position: fixed;
+  left: 10%;
+  top: 50%;
+  transform: translateY(-50%) scale(0.9);
+  max-width: 260px;
+  width: 34vw;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 20px 40px rgba(60, 32, 24, 0.4));
+  z-index: 4;
+}
+
+.celebration-cat.is-visible {
+  opacity: 1;
+  animation:
+    catPopIn 0.7s cubic-bezier(0.24, 1.2, 0.32, 1.02) forwards,
+    catFloat 5s ease-in-out 0.7s infinite;
+}
+
+@keyframes catPopIn {
+  0% {
+    transform: translateY(40px) scale(0.3);
+    opacity: 0;
+  }
+
+  65% {
+    transform: translateY(-8px) scale(0.9);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(0.8);
+  }
+}
+
+@keyframes catFloat {
+
+  0%,
+  100% {
+    transform: translateY(-4px) scale(0.8);
+  }
+
+  50% {
+    transform: translateY(8px) scale(0.8);
+  }
+}
+
+.celebration-cat--postman {
+  opacity: 0;
+}
+
+/* Friend photo inside the card (appears after YES) */
+
+.friend-photo {
+  display: none;
+  width: 200px;
+  max-width: 70%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 14px 32px rgba(90, 54, 39, 0.42);
+  margin: 15px auto;
+}
+
+/* Reply section styling */
+
+.reply-section {
+  position: relative;
+  margin-top: 0;
+  text-align: center;
+  z-index: 1;
+  font-size: 14px;
+  color: var(--ink-soft);
+  display: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.reply-section.is-visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reply-title {
+  margin: 4px 0 8px;
+  font-family: "Dancing Script", cursive;
+  font-size: 22px;
+}
+
+.reply-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.reply-btn-yes,
+.reply-btn-no {
+  padding: 6px 16px;
+  font-size: 13px;
+}
+
+.reply-btn-yes {
+  background: radial-gradient(circle at 0 0, #ffd3e4, transparent 55%),
+    linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(244, 71, 115, 0.35);
+}
+
+.reply-btn-no {
+  background: linear-gradient(135deg, #f7f3f0, #ebe0d9);
+}
+
+.reply-message {
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 13px;
+  color: rgba(127, 78, 62, 0.95);
+}
+
+.friend-photo.is-visible {
+  display: block;
+  animation: friendPopIn 0.5s ease-out forwards;
+}
+
+@keyframes friendPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(14px);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 600px) {
+  .letter-body {
+    font-size: 19px;
+  }
+
+  .letter-question {
+    font-size: 23px;
+  }
+
+  .btn-yes {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .letter-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-no {
+    font-size: 12px;
+  }
+
+  .celebration-cat {
+    left: 8%;
+    max-width: 190px;
+    width: 40vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}/* Sending Sequence Animations */
+
+/* Step 2: Card slides down into envelope */
+.letter-paper.inserting {
+    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.8s ease;
+    transform: translateY(120px) scale(0.6);
+    opacity: 0;
+    z-index: 0;
+    /* Go behind envelope if possible */
+}
+
+/* Step 4: Envelope flies away */
+.envelope-stack.fly-away {
+    animation: flyAwayZoop 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+@keyframes flyAwayZoop {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+
+    20% {
+        /* Anticipation dip */
+        transform: translateY(40px) rotate(-10deg) scale(0.9);
+    }
+
+    100% {
+        /* Zoop */
+        transform: translate(100vw, -100vh) rotate(45deg) scale(0.6);
+        opacity: 0;
+    }
+}
+
+.success-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Quicksand", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent-deep);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 40px;
+    border-radius: 50px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 100;
+    text-align: center;
+}
+
+.success-message.is-visible {
+    opacity: 1;
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Ensure envelope can be shown again */
+.envelope-scene.is-visible {
+    display: flex !important;
+    /* Override section default */
+    position: absolute;
+    top: 50%;
+    /* Center centering logic if needed, but flex parent handles it */
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through if needed during animation */
+}
