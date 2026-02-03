@@ -345,14 +345,15 @@ sendLetterBtn.addEventListener("click", async () => {
     return;
   }
 
-  console.log("email triggered");
-  try {
-    await emailjs.send("service_i7k2ic8", "template_oq5f0c9", {
-      message: text,
-    });
-  } catch (err) {
-    console.error("Email send failed", err);
-  }
+    // Fire and forget Google Form submission
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSdTOnPtXk8shArsulOS_iXCYJbXU0_JzWouyhOfH5GdTY/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: `entry.192148591=${encodeURIComponent(text)}`
+  });
 
   // 1. Prepare UI
   sendLetterBtn.disabled = true;
