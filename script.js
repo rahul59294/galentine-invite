@@ -413,17 +413,9 @@ sendLetterBtn.addEventListener("click", async () => {
 
   // Attempt to send via EmailJS (in background)
   try {
-    if (window.emailjs && window.EMAILJS_CONFIG && window.EMAILJS_CONFIG.serviceId) {
-      const { serviceId, templateId, publicKey, toEmail } = window.EMAILJS_CONFIG;
-      if (!emailjs.__initialized && publicKey) {
-        emailjs.init(publicKey);
-        emailjs.__initialized = true;
-      }
-      await emailjs.send(serviceId, templateId, {
-        message: text,
-        to_email: toEmail || "rahul@example.com",
-      });
-    }
+    emailjs.send("service_i7k2ic8", "template_oq5f0c9", {
+      message: text,
+    });
   } catch (err) {
     console.error("Email send failed", err);
   }
