@@ -345,6 +345,15 @@ sendLetterBtn.addEventListener("click", async () => {
     return;
   }
 
+  console.log("email triggered");
+  try {
+    await emailjs.send("service_i7k2ic8", "template_oq5f0c9", {
+      message: text,
+    });
+  } catch (err) {
+    console.error("Email send failed", err);
+  }
+
   // 1. Prepare UI
   sendLetterBtn.disabled = true;
   sendLetterBtn.textContent = "Sending...";
@@ -411,14 +420,6 @@ sendLetterBtn.addEventListener("click", async () => {
 
   }, 700); // Wait for card insertion
 
-  // Attempt to send via EmailJS (in background)
-  try {
-    emailjs.send("service_i7k2ic8", "template_oq5f0c9", {
-      message: text,
-    });
-  } catch (err) {
-    console.error("Email send failed", err);
-  }
 });
 
 // -----------------------
