@@ -340,20 +340,31 @@ function stopConfetti() {
 
 sendLetterBtn.addEventListener("click", async () => {
   const text = (letterTextarea.value || "").trim();
+
+  console.log("SEND CLICKED");
+
   if (!text) {
     letterTextarea.focus();
     return;
   }
 
-  // Fire and forget Google Form submission
-  fetch("https://docs.google.com/forms/d/e/1FAIpQLSdHkipCY-YHNW_SSUVqd2eTlOR42-V3cXh6uSASiZBRZPRYVQ/viewform?usp=header", {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: `entry.192148591=${encodeURIComponent(text)}`
-  });
+  try {
+    fetch("https://docs.google.com/forms/u/0/d/e/1FAIpQLSdHkipCY-YHNW_SSUVqd2eTlOR42-V3cXh6uSASiZBRZPRYVQ/formResponse",
+      {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "entry.192148591=" + encodeURIComponent(text)
+      });
+
+
+    console.log("FETCH SENT");
+
+  } catch (err) {
+    console.log("FETCH ERROR", err);
+  }
 
   // 1. Prepare UI
   sendLetterBtn.disabled = true;
